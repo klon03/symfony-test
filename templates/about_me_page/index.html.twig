@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block title %}O mnie{% endblock %}
+{% block head %}
+    {{ parent() }}
+    <style>
+    </style>
+{% endblock %}
+{% block content %}
+    <h1 class="text-center">O mnie</h1>
+    <div class="row mt-2">
+        <div class="col-12">
+            <a href="/about-me/add" class="btn btn-primary">Dodaj pole</a>
+        </div>
+    </div>
+{% endblock %}

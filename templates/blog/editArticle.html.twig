@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Edytuj artykuł{% endblock %}
+{% block head %}
+    {{ parent() }}
+    <style>
+    </style>
+{% endblock %}
+{% block content %}
+    <h1 class="text-center">Edytuj artykuł {{ article.id }}</h1>
+    <div class="row">
+        <div class="col-12">
+            {{ form(form) }}
+        </div>
+    </div>
+{% endblock %}

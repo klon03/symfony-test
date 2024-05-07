@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{article.title}}{% endblock %}
+{% block head %}
+    {{ parent() }}
+    <style>
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <h1>{{article.title}} (ID: {{ article.id }})</h1>
+            <p>
+                {{ article.content }}
+            </p>
+        </div>
+    </div>
+{% endblock %}
+
