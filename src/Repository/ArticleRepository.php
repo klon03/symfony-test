@@ -21,6 +21,35 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
+    public function getLastArticle(): ?Article
+    {
+        $qb = $this->createQueryBuilder('a');
+        $qb->orderBy('a.created', 'DESC');
+        $qb->setMaxResults(1);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    public function searchArticles(?string $search = ""): ?array
+
+    {
+        $qb = $this->createQueryBuilder('a');
+
+        $qb->where('LOWER(a.title) LIKE LOWER(:search)');
+        $qb->orwhere('LOWER(a.content) LIKE LOWER(:search)');
+        $qb->setParameter('search', '%' . $search . '%');
+        $qb->orderBy('a.created', 'DESC');
+
+        return $qb->getQuery()->getResult();
+    }
+
+//    public function getArticle(Int $id): ?Article
+//    {
+//        $qb = $this->createQueryBuilder('a');
+//        $qb->where('a.id = :id');
+//
+//    }
+
     //    /**
     //     * @return Article[] Returns an array of Article objects
     //     */

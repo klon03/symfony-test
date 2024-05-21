@@ -6,11 +6,56 @@
     <style>
     </style>
 {% endblock %}
+
+
 {% block content %}
     <h1 class="text-center">O mnie</h1>
     <div class="row mt-2">
         <div class="col-12">
-            <a href="/about-me/add" class="btn btn-primary">Dodaj pole</a>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addInfoModal">
+                Dodaj pole
+            </button>
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Klucz</th>
+                        <th scope="col">Wartość</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in info %}
+                    <tr>
+                        <th scope="row">{{ item.number  }}</th>
+                        <td>{{ item.key }}</td>
+                        <td>{{ item.value }}</td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
         </div>
     </div>
 {% endblock %}
+
+{% block modal %}
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="addInfoModal" tabindex="-1" aria-labelledby="addInfoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addInfoModalLabel">Dodaj nowe pole</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{ form(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

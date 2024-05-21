@@ -2,27 +2,37 @@
 
 namespace App\Repository;
 
-use App\Entity\AboutMe;
+use App\Entity\AboutMeInfo;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
- * @extends ServiceEntityRepository<AboutMe>
+ * @extends ServiceEntityRepository<AboutMeInfo>
  *
- * @method AboutMe|null find($id, $lockMode = null, $lockVersion = null)
- * @method AboutMe|null findOneBy(array $criteria, array $orderBy = null)
- * @method AboutMe[]    findAll()
- * @method AboutMe[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method AboutMeInfo|null find($id, $lockMode = null, $lockVersion = null)
+ * @method AboutMeInfo|null findOneBy(array $criteria, array $orderBy = null)
+ * @method AboutMeInfo[]    findAll()
+ * @method AboutMeInfo[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class AboutMeRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager)
     {
-        parent::__construct($registry, AboutMe::class);
+        parent::__construct($registry, AboutMeInfo::class);
+        $this->entityManager = $entityManager;
+    }
+
+    public function insert(AboutMeInfo $info): void
+    {
+        $this->entityManager->persist($info);
+        $this->entityManager->flush();
     }
 
     //    /**
-    //     * @return AboutMe[] Returns an array of AboutMe objects
+    //     * @return AboutMeInfo[] Returns an array of AboutMeInfo objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -36,7 +46,7 @@ class AboutMeRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?AboutMe
+    //    public function findOneBySomeField($value): ?AboutMeInfo
     //    {
     //        return $this->createQueryBuilder('a')
     //            ->andWhere('a.exampleField = :val')

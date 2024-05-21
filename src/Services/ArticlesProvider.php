@@ -7,6 +7,14 @@ class ArticlesProvider
         $transformedArticles = [];
         foreach ($articles as $article) {
             $date = $article->getCreated()->format('d.m.Y');
+            $images = $article->getImages();
+
+            if (!$images->isEmpty()) {
+                $imagePath = $images->first()->getPath();
+            } else {
+                $imagePath = '/img/placeholder.png';
+            }
+
             $transformedArticles['articles'][] = [
                 'title' => $article->getTitle(),
                 'content' => substr($article->getContent(), 0, 80) . '...',
@@ -14,6 +22,7 @@ class ArticlesProvider
                 'linkEdit' => '/article/' .$article->getId() . '/edit',
                 'linkDelete' => '/article/' .$article->getId() . '/delete',
                 'created' => $date,
+                'imagePath' =>$imagePath,
             ];
         }
 
