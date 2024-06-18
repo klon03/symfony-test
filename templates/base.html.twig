@@ -13,11 +13,19 @@
         {% endblock %}
     </head>
     <body>
-        <nav class="nav d-flex justify-content-center mb-5">
-            <a class="nav-link" href="/">Start</a>
-            <a class="nav-link" href="/main">Blog</a>
-            <a class="nav-link" href="/about-me">O mnie</a>
-            <a class="nav-link" href="{{ path('contactForm') }}">Kontakt</a>
+        <nav class="nav d-flex justify-content-between m-2">
+           <div>
+               <a class="btn btn-dark" href="{{ path('app_login') }}">
+                   Zaloguj
+               </a>
+           </div>
+            <div class="d-flex  flex-row">
+                <a class="nav-link" href="/">Start</a>
+                <a class="nav-link" href="/main">Blog</a>
+                <a class="nav-link" href="/about-me">O mnie</a>
+                <a class="nav-link" href="{{ path('contactForm') }}">Kontakt</a>
+            </div>
+
             <form class="d-flex" role="search" method="GET" action="/main">
                 <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
