@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Strona główna{% endblock %}
+
+{% block body %}
+<style>
+
+</style>
+
+    <h1 class="text-center">Strona główna</h1>
+    <h3 class="text-center">Najnowszy artykuł</h3>
+    <div class="row mt-5 d-flex justify-content-center">
+        <div class="col-8">
+            {% if article %}
+            <div class="card" >
+                <div class="card-body">
+                    <a href="{{ article.link }}">
+                        <h3 class="card-title">{{ article.title }}</h3>
+                    </a>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">{{ article.created }}</h6>
+                    <p class="card-text">
+                        {{ article.content }}
+                    </p>
+
+                </div>
+                <div class="card-footer text-body-secondary text-center">
+                    {{ article.id }}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

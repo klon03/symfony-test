@@ -8,11 +8,16 @@
 {% endblock %}
 {% block content %}
     <div class="row">
-        <div class="col-12">
-            <h1>{{article.title}} (ID: {{ article.id }})</h1>
+        <h1>{{article.title}} (ID: {{ article.id }})</h1>
+        <div class="col-8">
             <p>
                 {{ article.content }}
             </p>
+        </div>
+        <div class="col-4">
+            {% for image in images %}
+                <img class="img-fluid mb-3 rounded" src="{{ image.path }}" alt="{{ image.alt | default('Zdjęcie') }}" title="{{ image.title | default('') }}">
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

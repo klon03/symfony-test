@@ -10,7 +10,25 @@
     <h1 class="text-center">Edytuj artykuł {{ article.id }}</h1>
     <div class="row">
         <div class="col-12">
-            {{ form(form) }}
+            {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}}) }}
+            {{ form_widget(form) }}
+            <div class="row">
+                {% for image in images %}
+                    <div class="col-3 mb-4">
+                        <img src="{{ image.path }}" alt="{{ image.alt }}" class="img-fluid rounded mb-2">
+                        <div class="text-center">
+                            {{ image.title }}
+                            <a href="{{ path('deleteImage', { 'id': image.id }) }}" class="btn btn-danger btn-sm">Usuń</a>
+                        </div>
+
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="form-widget"></div>
+            {{ form_end(form) }}
         </div>
     </div>
+
+    <script src="{{ asset('js/image-input-handler.js') }}"></script>
+
 {% endblock %}
