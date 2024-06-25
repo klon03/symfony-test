@@ -57,6 +57,7 @@ class ApiResponseFormatter
     {
         $formatter = new self();
         return $formatter
+            ->setData([])
             ->setMessage($message)
             ->setErrors($errors)
             ->setStatusCode($statusCode)
