@@ -3,18 +3,25 @@
 namespace App\Controller;
 
 use App\Formatter\ApiResponseFormatter;
+use App\Request\RequestValidator;
+use App\Request\User\AddUserRequest;
+use App\RequestDeserializer\RequestJsonDeserializer;
 use App\Services\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserController extends AbstractController
 {
     public function __construct (
         private ApiResponseFormatter $apiResponseFormatter,
-        private UserService $userService
+        private UserService $userService,
+        private RequestJsonDeserializer $deserializer,
+        private RequestValidator $requestValidator,
     )
     {
     }
@@ -54,9 +61,11 @@ class UserController extends AbstractController
     #[IsGranted("ROLE_ADD_USER")]
     public function addUser(Request $request): JsonResponse
     {
+        $addUserRequest = $this->deserializer->fromRequestBody($request, AddUserRequest::class);
         $data = $request->toArray();
 
         try {
+            $this->requestValidator->validate($addUserRequest);
             $result = $this->userService->addUser($data);
             return $this->apiResponseFormatter->success($result);
         } catch (\Exception $e) {

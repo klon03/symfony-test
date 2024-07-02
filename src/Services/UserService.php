@@ -47,6 +47,7 @@ class UserService
         $user->setUsername($data['username']);
         $hashedPassword = $this->passwordHasher->hashPassword($user, $data['password']);
         $user->setPassword($hashedPassword);
+
         $this->userRepository->insert($user);
 
         return [
