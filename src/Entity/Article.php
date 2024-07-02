@@ -3,8 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\ArticleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 class Article
@@ -22,6 +25,14 @@ class Article
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $created = null;
+
+    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'article', orphanRemoval: true)]
+    private Collection $images;
+
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -61,6 +72,26 @@ class Article
     {
         $this->created = $created;
 
+        return $this;
+    }
+
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function setImages(Collection $images): static
+    {
+        $this->images = $images;
+        return $this;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if(!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setArticle($this);
+        }
         return $this;
     }
 }

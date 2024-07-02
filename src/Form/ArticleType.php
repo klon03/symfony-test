@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Article;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -17,8 +18,15 @@ class ArticleType extends AbstractType
         $builder
             ->add('title', TextType::class)
             ->add('content', TextareaType::class, ['attr' => ['rows' => 8]])
-            ->add('save', SubmitType::class, ['label' => 'Zapisz zmiany'])
-        ;
+            ->add('images', FileType::class, [
+                'label' => 'Dodaj obrazy',
+                'mapped' => false,
+                'multiple' => true,
+                'required' => false,
+                'attr' => ['class' => 'image-input'],
+            ])
+            ->add('save', SubmitType::class, [
+                'label' => 'Zapisz zmiany']);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -6,7 +6,7 @@ use App\Repository\AboutMeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AboutMeRepository::class)]
-class AboutMe
+class AboutMeInfo
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

@@ -4,20 +4,19 @@ namespace App\Services;
 
 class AboutMeProvider
 {
-    public function transformData(array $articles): array {
-        $transformedArticles = [];
-        foreach ($articles as $article) {
-            $date = $article->getCreated()->format('d.m.Y');
-            $transformedArticles['articles'][] = [
-                'title' => $article->getTitle(),
-                'content' => substr($article->getContent(), 0, 80) . '...',
-                'link' => '/article/' .$article->getId(),
-                'linkEdit' => '/article/' .$article->getId() . '/edit',
-                'linkDelete' => '/article/' .$article->getId() . '/delete',
-                'created' => $date,
+    public function transformAboutData(array $data): array {
+        $transformedData = [];
+        $i = 1;
+        foreach ($data as $item) {
+
+            $transformedData['info'][] = [
+                'number' => $i,
+                'key' => $item->getKey(),
+                'value' => $item->getValue(),
             ];
+            $i++;
         }
 
-        return $transformedArticles;
+        return $transformedData;
     }
 }

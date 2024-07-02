@@ -11,6 +11,7 @@
     <a href="/add/article" class="btn btn-primary">Dodaj artykuł</a>
     <div class="row mt-2">
         <div class="col-12">
+            {% if articles is defined %}
             <div class="list-group">
 
                 {% for article in articles %}
@@ -18,13 +19,17 @@
                        class="list-group-item list-group-item-action d-flex
                        justify-content-between align-items-start">
 
-                        <div class="ms-2 me-auto">
-                            <div class="fw-bold">
-                                {{ article.title }}
-                                <span class="text-body-secondary fs-6 fw-light">{{ article.created }}</span>
+                        <div class="d-flex">
+                            <img src="{{ article.imagePath }}" class="img-fluid rounded" width="100">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">
+                                    {{ article.title }}
+                                    <span class="text-body-secondary fs-6 fw-light">{{ article.created }}</span>
+                                </div>
+                                {{ article.content }}
                             </div>
-                            {{ article.content }}
                         </div>
+
                         <div>
                             <a href="{{ article.linkDelete }}" class="btn btn-danger">Usuń</a>
                             <a href="{{ article.linkEdit }}" class="btn btn-primary">Edytuj</a>
@@ -33,6 +38,7 @@
 
                 {% endfor %}
             </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

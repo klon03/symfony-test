@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\AboutMeInfo;
 use App\Entity\Article;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -29,6 +30,16 @@ class AppFixtures extends Fixture
         $article3->setContent('Article 3 content');
         $article3->setCreated(new \DateTime('16:15:21 16.12.2023'));
         $manager->persist($article3);
+
+        $about1 = new AboutMeInfo();
+        $about1->setKey('name');
+        $about1->setValue('Jan');
+        $manager->persist($about1);
+
+        $about2 = new AboutMeInfo();
+        $about2->setKey('lastname');
+        $about2->setValue('Doe');
+        $manager->persist($about2);
 
         $manager->flush();
     }
